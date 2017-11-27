@@ -19,6 +19,7 @@ import javax.swing.JPanel;
  */
 public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
+  private static final String DEFAULT_SERIF = "Serif";
   /**
    *
    */
@@ -44,10 +45,10 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     // add components vertically
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-    
+
     final JPanel tablePanel = new JPanel();
     final GridLayout layout = new GridLayout(
-        config.getGroupMembers().size() + 2, config.getGroupMembers().size());
+        config.getGroupMembers().size() + 2, config.getNumCols());
     tablePanel.setLayout(layout);
 
     getHeader(tablePanel);
@@ -56,7 +57,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     for (final String member : config.getGroupMembers()) {
       tablePanel.add(new JLabel(member));
 
-      for (int i = 1; i < config.getGroupMembers().size(); i++) {
+      for (int i = 1; i < config.getNumCols(); i++) {
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
@@ -68,15 +69,15 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     } // for
 
-    JPanel buttonPanel = new JPanel();
+    final JPanel buttonPanel = new JPanel();
     final JButton submit = new JButton("Submit");
     final JButton reset = new JButton("Reset");
     buttonPanel.add(submit);
     buttonPanel.add(reset);
-    
+
     this.add(tablePanel);
     this.add(buttonPanel);
-    
+
     return this;
   }
 
@@ -85,21 +86,17 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
    */
   private void getHeader(JPanel tablePanel) {
 
-    JLabel headline = new JLabel("Survey Form"); 
-    headline.setFont(new Font("Serif", Font.BOLD, 30));
+    final JLabel headline = new JLabel("Survey Form");
+    headline.setFont(new Font(DEFAULT_SERIF, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
-    this.add(headline);
-    
-    for (int i = 0; i < config.getGroupMembers().size(); i++) {
-      // print
-      if (i == 0) {
-        tablePanel.add(new JLabel("Member"));
-        continue;
-      }
 
-      tablePanel.add(new JLabel("Member " + (i)));
-    }
+    this.add(headline);
+
+    tablePanel.add(new JLabel("Member"));
+    tablePanel.add(new JLabel("Professionalism"));
+    tablePanel.add(new JLabel("Participation"));
+    tablePanel.add(new JLabel("Work Evaluation"));
+    
   }
 
   /**
@@ -113,7 +110,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     private final List<String> groupMembers;
     private int lowestScore = 1;
     private int highestScore = 5;
-
+    private int numCols = 4;
     /**
      *
      * @param groupMembers
@@ -141,6 +138,14 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     public List<String> getGroupMembers() {
       return groupMembers;
+    }
+
+    public int getNumCols() {
+      return numCols;
+    }
+
+    public void setNumCols(int numCols) {
+      this.numCols = numCols;
     }
 
   }
