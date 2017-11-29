@@ -11,6 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.ub.grp.frteen.utils.AppConstants;
+
 /**
  * This screen represents the Survey form filled by the student.
  *
@@ -19,7 +21,6 @@ import javax.swing.JPanel;
  */
 public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
-  private static final String DEFAULT_SERIF = "Serif";
   /**
    *
    */
@@ -52,7 +53,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
         config.getGroupMembers().size() + 2, config.getNumCols());
     layout.setHgap(config.getHorizontalPadding());
     layout.setVgap(config.getVerticalPadding());
-    
+
     tablePanel.setLayout(layout);
 
     getHeader(tablePanel);
@@ -64,7 +65,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
       // add columns
       for (int i = 1; i < config.getNumCols(); i++) {
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
-        
+
         // add drop down items
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
@@ -76,6 +77,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     } // for
 
+    // add buttons
     final JPanel buttonPanel = new JPanel();
     final JButton submit = new JButton("Submit");
     final JButton reset = new JButton("Reset");
@@ -93,17 +95,17 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
    */
   private void getHeader(JPanel tablePanel) {
 
-    final JLabel headline = new JLabel("Survey Form");
-    headline.setFont(new Font(DEFAULT_SERIF, Font.BOLD, 30));
+    final JLabel headline = new JLabel(AppConstants.SURVEY_FORM_TEXT);
+    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     this.add(headline);
 
-    tablePanel.add(new JLabel("Member"));
-    tablePanel.add(new JLabel("Professionalism"));
-    tablePanel.add(new JLabel("Participation"));
-    tablePanel.add(new JLabel("Work Evaluation"));
-    
+    tablePanel.add(new JLabel(AppConstants.MEMBER_TXT));
+    tablePanel.add(new JLabel(AppConstants.PROFESSIONALISM_TXT));
+    tablePanel.add(new JLabel(AppConstants.PARTICIPATION_TXT));
+    tablePanel.add(new JLabel(AppConstants.WORK_EVALUATION_TXT));
+
   }
 
   /**
