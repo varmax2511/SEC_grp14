@@ -47,8 +47,12 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     final JPanel tablePanel = new JPanel();
+    // setup layout
     final GridLayout layout = new GridLayout(
         config.getGroupMembers().size() + 2, config.getNumCols());
+    layout.setHgap(config.getHorizontalPadding());
+    layout.setVgap(config.getVerticalPadding());
+    
     tablePanel.setLayout(layout);
 
     getHeader(tablePanel);
@@ -57,8 +61,11 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     for (final String member : config.getGroupMembers()) {
       tablePanel.add(new JLabel(member));
 
+      // add columns
       for (int i = 1; i < config.getNumCols(); i++) {
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
+        
+        // add drop down items
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
           scoreSelector.addItem(j);
@@ -108,9 +115,11 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
   public static class Config {
 
     private final List<String> groupMembers;
-    private int lowestScore = 1;
+    private int lowestScore = 0;
     private int highestScore = 5;
     private int numCols = 4;
+    private int horizontalPadding = 30;
+    private int verticalPadding = 10;
     /**
      *
      * @param groupMembers
@@ -146,6 +155,22 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     public void setNumCols(int numCols) {
       this.numCols = numCols;
+    }
+
+    public int getHorizontalPadding() {
+      return horizontalPadding;
+    }
+
+    public void setHorizontalPadding(int horizontalPadding) {
+      this.horizontalPadding = horizontalPadding;
+    }
+
+    public int getVerticalPadding() {
+      return verticalPadding;
+    }
+
+    public void setVerticalPadding(int verticalPadding) {
+      this.verticalPadding = verticalPadding;
     }
 
   }
