@@ -3,12 +3,17 @@ package com.ub.grp.frteen.core;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -17,7 +22,7 @@ import javax.swing.JPanel;
  * @author varunjai
  *
  */
-public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
+public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionListener {
 
   private static final String DEFAULT_SERIF = "Serif";
   /**
@@ -25,6 +30,9 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
    */
   private static final long serialVersionUID = 1L;
   private final Config config;
+  
+  // A list of score selectors for each group member
+  private HashMap<String, ArrayList<JComboBox<Integer>>> scoreSelectors;
 
   /**
    * Initialize.
@@ -38,6 +46,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
       throw new IllegalArgumentException("Configuration object cannot be null");
     }
     this.config = config;
+    this.scoreSelectors = new HashMap<String, ArrayList<JComboBox<Integer>>>();
   }
 
   @Override
@@ -55,6 +64,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
 
     // create the form
     for (final String member : config.getGroupMembers()) {
+    	  scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
       tablePanel.add(new JLabel(member));
 
       for (int i = 1; i < config.getNumCols(); i++) {
@@ -63,8 +73,8 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
             .getHighestScore(); j++) {
           scoreSelector.addItem(j);
         } // for
-
         tablePanel.add(scoreSelector);
+        scoreSelectors.get(member).add(scoreSelector);
       } // for
 
     } // for
@@ -72,6 +82,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     final JPanel buttonPanel = new JPanel();
     final JButton submit = new JButton("Submit");
     final JButton reset = new JButton("Reset");
+    submit.addActionListener(this);
     buttonPanel.add(submit);
     buttonPanel.add(reset);
 
@@ -98,6 +109,27 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     tablePanel.add(new JLabel("Work Evaluation"));
     
   }
+  
+  	@Override
+	public void actionPerformed(ActionEvent e) {
+  		Integer totalPoints = 0;
+  		HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
+		for (String member : config.getGroupMembers()) {
+			ArrayList<JComboBox<Integer>> comboBoxes = this.scoreSelectors.get(member);
+			Integer score = 0;
+			for (JComboBox<Integer> comboBox : comboBoxes) {
+				score += (Integer)comboBox.getSelectedItem();
+			}
+			memberScores.put(member, score);
+			totalPoints += score;
+		  }
+		  String outputString = "";
+		  for (String member : config.getGroupMembers()) {
+			  double normalized = (double) memberScores.get(member) / totalPoints;
+			  outputString += String.format("%s's normalized score: %.4f\n", member, normalized);
+		  }
+		  JOptionPane.showMessageDialog(null, outputString);
+	}
 
   /**
    * Configuration class for {@link SurveyScreen}
@@ -149,4 +181,6 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     }
 
   }
+
+	
 }
