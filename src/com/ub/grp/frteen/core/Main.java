@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.ub.grp.frteen.utils.AppConstants;
 import com.ub.grp.frteen.utils.FontUtils;
 /**
  * Starter class
@@ -29,7 +30,7 @@ public class Main {
 
     // set application font
     FontUtils.setUIFont(
-        new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 20));
+        new javax.swing.plaf.FontUIResource(AppConstants.FONT_SERIF, Font.PLAIN, 20));
 
     appContainer.setLocation(500, 200);
     // appContainer.setSize(1000, 1000);

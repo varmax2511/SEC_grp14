@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.ub.grp.frteen.utils.AppConstants;
+import com.ub.grp.frteen.utils.NormalizationUtil;
 
 /**
  * This screen represents the Survey form filled by the student.
@@ -24,14 +26,17 @@ import com.ub.grp.frteen.utils.AppConstants;
  * @author varunjai
  *
  */
-public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionListener {
+public class SurveyScreen extends JPanel
+    implements
+      AppScreen<JPanel>,
+      ActionListener {
 
   /**
    *
    */
   private static final long serialVersionUID = 1L;
   private final Config config;
-  
+
   // A list of score selectors for each group member
   private HashMap<String, ArrayList<JComboBox<Integer>>> scoreSelectors;
 
@@ -69,7 +74,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionLis
 
     // create the form
     for (final String member : config.getGroupMembers()) {
-    	  scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
+      scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
       tablePanel.add(new JLabel(member));
 
       // add columns
@@ -118,27 +123,34 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionLis
     tablePanel.add(new JLabel(AppConstants.WORK_EVALUATION_TXT));
 
   }
-  
-  	@Override
-	public void actionPerformed(ActionEvent e) {
-  		Integer totalPoints = 0;
-  		HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
-		for (String member : config.getGroupMembers()) {
-			ArrayList<JComboBox<Integer>> comboBoxes = this.scoreSelectors.get(member);
-			Integer score = 0;
-			for (JComboBox<Integer> comboBox : comboBoxes) {
-				score += (Integer)comboBox.getSelectedItem();
-			}
-			memberScores.put(member, score);
-			totalPoints += score;
-		  }
-		  String outputString = "";
-		  for (String member : config.getGroupMembers()) {
-			  double normalized = (double) memberScores.get(member) / totalPoints;
-			  outputString += String.format("%s's normalized score: %.4f\n", member, normalized);
-		  }
-		  JOptionPane.showMessageDialog(null, outputString);
-	}
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    Integer totalScore = 0;
+    final HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
+
+    for (final String member : config.getGroupMembers()) {
+
+      final ArrayList<JComboBox<Integer>> comboBoxes = this.scoreSelectors
+          .get(member);
+      Integer score = 0;
+
+      for (final JComboBox<Integer> comboBox : comboBoxes) {
+        score += (Integer) comboBox.getSelectedItem();
+      } // for
+      memberScores.put(member, score);
+      totalScore += score;
+    } // for
+
+    final StringBuilder outputString = new StringBuilder();
+    for (final Entry<String, Double> member2Normalized : NormalizationUtil
+        .getNormalizedScores(memberScores, totalScore).entrySet()) {
+      outputString.append(String.format("%s's normalized score: %.4f\n",
+          member2Normalized.getKey(), member2Normalized.getValue()));
+    } // for
+
+    JOptionPane.showMessageDialog(null, outputString.toString());
+  }
 
   /**
    * Configuration class for {@link SurveyScreen}
@@ -209,5 +221,4 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionLis
 
   }
 
-	
 }
