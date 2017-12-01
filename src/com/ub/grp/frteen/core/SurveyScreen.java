@@ -78,13 +78,17 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionLis
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
 
         // add drop down items
+        int randScore = -1;
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
           if(j==0) {
             if (!config.getRandomScore()) scoreSelector.addItem(j);
-            else scoreSelector.addItem(getRandomVal());
+            else {
+              randScore = getRandomVal();
+              scoreSelector.addItem(randScore);
+            }
           }else{
-            scoreSelector.addItem(j);
+            if(j!=randScore)scoreSelector.addItem(j);
           }
         } // for
         tablePanel.add(scoreSelector);
