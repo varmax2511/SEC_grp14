@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.LinkedList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -11,8 +15,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.ub.grp.frteen.utils.AppConstants;
 
 /**
  * This screen represents the Survey form filled by the student.
@@ -20,14 +26,16 @@ import javax.swing.JPanel;
  * @author varunjai
  *
  */
-public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
+public class SurveyScreen extends JPanel implements AppScreen<JPanel>, ActionListener {
 
-  private static final String DEFAULT_SERIF = "Serif";
   /**
    *
    */
   private static final long serialVersionUID = 1L;
   private final Config config;
+  
+  // A list of score selectors for each group member
+  private HashMap<String, ArrayList<JComboBox<Integer>>> scoreSelectors;
 
   /**
    * Initialize.
@@ -41,6 +49,7 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
       throw new IllegalArgumentException("Configuration object cannot be null");
     }
     this.config = config;
+    this.scoreSelectors = new HashMap<String, ArrayList<JComboBox<Integer>>>();
   }
 
   @Override
@@ -50,32 +59,45 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     final JPanel tablePanel = new JPanel();
+    // setup layout
     final GridLayout layout = new GridLayout(
         config.getDisplayMembers().size() + 1, config.getNumCols());
-    tablePanel.setLayout(layout);
+    layout.setHgap(config.getHorizontalPadding());
+    layout.setVgap(config.getVerticalPadding());
 
+    tablePanel.setLayout(layout);
     getHeader(tablePanel);
 
     // create the form
     for (final String member : config.getDisplayMembers()) {
+    	  scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
       tablePanel.add(new JLabel(member));
 
+      // add columns
       for (int i = 1; i < config.getNumCols(); i++) {
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
+
+        // add drop down items
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
-          if(!config.getRandomScore())scoreSelector.addItem(j);
-          else scoreSelector.addItem(getRandomVal());
+          if(j==0) {
+            if (!config.getRandomScore()) scoreSelector.addItem(j);
+            else scoreSelector.addItem(getRandomVal());
+          }else{
+            scoreSelector.addItem(j);
+          }
         } // for
-
         tablePanel.add(scoreSelector);
+        scoreSelectors.get(member).add(scoreSelector);
       } // for
 
     } // for
 
+    // add buttons
     final JPanel buttonPanel = new JPanel();
     final JButton submit = new JButton("Submit");
     final JButton reset = new JButton("Reset");
+    submit.addActionListener(this);
     buttonPanel.add(submit);
     buttonPanel.add(reset);
 
@@ -97,18 +119,39 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
    */
   private void getHeader(JPanel tablePanel) {
 
-    final JLabel headline = new JLabel("Survey Form");
-    headline.setFont(new Font(DEFAULT_SERIF, Font.BOLD, 30));
+    final JLabel headline = new JLabel(AppConstants.SURVEY_FORM_TEXT);
+    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     this.add(headline);
 
-    tablePanel.add(new JLabel("Member"));
-    tablePanel.add(new JLabel("Professionalism"));
-    tablePanel.add(new JLabel("Participation"));
-    tablePanel.add(new JLabel("Work Evaluation"));
-    
+    tablePanel.add(new JLabel(AppConstants.MEMBER_TXT));
+    tablePanel.add(new JLabel(AppConstants.PROFESSIONALISM_TXT));
+    tablePanel.add(new JLabel(AppConstants.PARTICIPATION_TXT));
+    tablePanel.add(new JLabel(AppConstants.WORK_EVALUATION_TXT));
+
   }
+  
+  	@Override
+	public void actionPerformed(ActionEvent e) {
+  		Integer totalPoints = 0;
+  		HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
+		for (String member : config.getDisplayMembers()) {
+			ArrayList<JComboBox<Integer>> comboBoxes = this.scoreSelectors.get(member);
+			Integer score = 0;
+			for (JComboBox<Integer> comboBox : comboBoxes) {
+				score += (Integer)comboBox.getSelectedItem();
+			}
+			memberScores.put(member, score);
+			totalPoints += score;
+		  }
+		  String outputString = "";
+		  for (String member : config.getDisplayMembers()) {
+			  double normalized = (double) memberScores.get(member) / totalPoints;
+			  outputString += String.format("%s's normalized score: %.4f\n", member, normalized);
+		  }
+		  JOptionPane.showMessageDialog(null, outputString);
+	}
 
   /**
    * Configuration class for {@link SurveyScreen}
@@ -119,12 +162,15 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
   public static class Config {
 
     private final List<String> groupMembers;
+
     private List<String> displayMembers;
-    private int lowestScore = 1;
-    private int highestScore = 5;
-    private int numCols = 4;
     private boolean randomScore=false;
 
+    private int lowestScore = 0;
+    private int highestScore = 5;
+    private int numCols = 4;
+    private int horizontalPadding = 30;
+    private int verticalPadding = 10;
     /**
      *
      * @param groupMembers
@@ -166,8 +212,27 @@ public class SurveyScreen extends JPanel implements AppScreen<JPanel> {
       }
     }
 
+
     public void setRandomScore(boolean val){randomScore = val;}
     public boolean getRandomScore(){return randomScore;}
 
+    public int getHorizontalPadding() {
+      return horizontalPadding;
+    }
+
+    public void setHorizontalPadding(int horizontalPadding) {
+      this.horizontalPadding = horizontalPadding;
+    }
+
+    public int getVerticalPadding() {
+      return verticalPadding;
+    }
+
+    public void setVerticalPadding(int verticalPadding) {
+      this.verticalPadding = verticalPadding;
+    }
+
   }
+
+	
 }

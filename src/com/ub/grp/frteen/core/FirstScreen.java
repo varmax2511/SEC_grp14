@@ -73,6 +73,7 @@ public class FirstScreen extends JPanel implements AppScreen, ActionListener{
         nextScreen.setVisible(false);
     }
 
+
     public void setNextJFrameObject(SurveyScreen window){
         surveyScreen= window;
     }
