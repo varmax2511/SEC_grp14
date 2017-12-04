@@ -15,9 +15,7 @@ public class NormalizationUtil {
    * 
    * @param memberScores
    *          The map of member name to member score
-   * @param totalScore
-   *          The total score of all the members
-   * @return
+   * @return A map of normalized score for each team member.
    */
   public static Map<String, Double> getNormalizedScores(
       Map<String, Integer> memberScores) {
