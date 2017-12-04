@@ -1,7 +1,5 @@
 package com.ub.grp.frteen.core;
 
-import javafx.scene.control.CheckBox;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

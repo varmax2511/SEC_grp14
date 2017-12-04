@@ -34,7 +34,7 @@ public class Main {
         new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 20));
 
     appContainer.setLocation(500, 200);
-    // appContainer.setSize(1000, 1000);
+    appContainer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     // appContainer.add(new LoginScreen().getScreen());
 
       FirstScreen firstScreen = new FirstScreen();
@@ -58,8 +58,7 @@ public class Main {
     //containerPanel.add(new SurveyScreen(surveyConfig).getScreen(),BorderLayout.CENTER);
 
     //appContainer.add(containerPanel);
-    appContainer.setVisible(true);
     appContainer.pack();
-
+    appContainer.setVisible(true);
   }
 }
