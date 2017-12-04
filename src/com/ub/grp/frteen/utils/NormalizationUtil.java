@@ -20,8 +20,13 @@ public class NormalizationUtil {
    * @return
    */
   public static Map<String, Double> getNormalizedScores(
-      Map<String, Integer> memberScores, int totalScore) {
+      Map<String, Integer> memberScores) {
     final Map<String, Double> member2NormalizedScores = new HashMap<>();
+
+    int totalScore = 0;
+    for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {
+    		totalScore += memberScore.getValue();
+    }
 
     for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {
 

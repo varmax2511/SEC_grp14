@@ -157,12 +157,11 @@ public class SurveyScreen extends JPanel
         score += (Integer) comboBox.getSelectedItem();
       } // for
       memberScores.put(member, score);
-      totalScore += score;
     } // for
 
     final StringBuilder outputString = new StringBuilder();
     for (final Entry<String, Double> member2Normalized : NormalizationUtil
-        .getNormalizedScores(memberScores, totalScore).entrySet()) {
+        .getNormalizedScores(memberScores).entrySet()) {
       outputString.append(String.format("%s's normalized score: %.4f\n",
           member2Normalized.getKey(), member2Normalized.getValue()));
     } // for
