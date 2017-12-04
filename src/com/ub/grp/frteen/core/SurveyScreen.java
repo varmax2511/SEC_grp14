@@ -84,21 +84,13 @@ public class SurveyScreen extends JPanel
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
 
         // add drop down items
-        int randScore = -1;
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
-          if (j == 0) {
-            if (!config.getRandomScore())
-              scoreSelector.addItem(j);
-            else {
-              randScore = getRandomVal();
-              scoreSelector.addItem(randScore);
-            }
-          } else {
-            if (j != randScore)
-              scoreSelector.addItem(j);
-          }
+        		scoreSelector.addItem(j);
         } // for
+        if (config.getRandomScore()) {
+        		scoreSelector.setSelectedIndex(getRandomVal());
+        }
         tablePanel.add(scoreSelector);
         scoreSelectors.get(member).add(scoreSelector);
       } // for
