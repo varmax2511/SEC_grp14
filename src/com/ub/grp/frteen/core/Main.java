@@ -49,6 +49,8 @@ public class Main {
     groupMembers.add("Ralph");
     groupMembers.add("Nick");
     groupMembers.add("Shivam");
+    groupMembers.add("Fred");
+    groupMembers.add("Johnny");
 
     SurveyScreen.Config surveyConfig = new SurveyScreen.Config(groupMembers);
 
