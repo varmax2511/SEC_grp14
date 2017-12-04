@@ -14,5 +14,6 @@ public interface AppConstants {
   public String PROFESSIONALISM_TXT = "Professionalism";
   public String MEMBER_TXT = "Member";
   public String SURVEY_FORM_TEXT = "Survey Form";
+  public String FONT_SERIF = "Serif";
 
 }
