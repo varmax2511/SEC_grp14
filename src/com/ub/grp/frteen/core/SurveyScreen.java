@@ -3,12 +3,14 @@ package com.ub.grp.frteen.core;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -64,16 +66,16 @@ public class SurveyScreen extends JPanel
     final JPanel tablePanel = new JPanel();
     // setup layout
     final GridLayout layout = new GridLayout(
-        config.getGroupMembers().size() + 2, config.getNumCols());
+        config.getDisplayMembers().size() + 1, config.getNumCols());
     layout.setHgap(config.getHorizontalPadding());
     layout.setVgap(config.getVerticalPadding());
 
     tablePanel.setLayout(layout);
-
     getHeader(tablePanel);
 
     // create the form
-    for (final String member : config.getGroupMembers()) {
+
+    for (final String member : config.getDisplayMembers()) {
       scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
       tablePanel.add(new JLabel(member));
 
@@ -82,9 +84,20 @@ public class SurveyScreen extends JPanel
         final JComboBox<Integer> scoreSelector = new JComboBox<>();
 
         // add drop down items
+        int randScore = -1;
         for (int j = config.getLowestScore(); j <= config
             .getHighestScore(); j++) {
-          scoreSelector.addItem(j);
+          if (j == 0) {
+            if (!config.getRandomScore())
+              scoreSelector.addItem(j);
+            else {
+              randScore = getRandomVal();
+              scoreSelector.addItem(randScore);
+            }
+          } else {
+            if (j != randScore)
+              scoreSelector.addItem(j);
+          }
         } // for
         tablePanel.add(scoreSelector);
         scoreSelectors.get(member).add(scoreSelector);
@@ -104,6 +117,15 @@ public class SurveyScreen extends JPanel
     this.add(buttonPanel);
 
     return this;
+  }
+
+  public int getRandomVal() {
+    Random random = new Random();
+    return random.nextInt(5) + 1;
+  }
+
+  public Config getConfig() {
+    return this.config;
   }
 
   /**
@@ -129,8 +151,12 @@ public class SurveyScreen extends JPanel
     Integer totalScore = 0;
     final HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
 
-    for (final String member : config.getGroupMembers()) {
+    for (final String member : config.getDisplayMembers()) {
 
+      if(this.scoreSelectors.get(member) == null){
+        continue;
+      }
+      
       final ArrayList<JComboBox<Integer>> comboBoxes = this.scoreSelectors
           .get(member);
       Integer score = 0;
@@ -161,6 +187,10 @@ public class SurveyScreen extends JPanel
   public static class Config {
 
     private final List<String> groupMembers;
+
+    private List<String> displayMembers;
+    private boolean randomScore = false;
+
     private int lowestScore = 0;
     private int highestScore = 5;
     private int numCols = 4;
@@ -173,6 +203,7 @@ public class SurveyScreen extends JPanel
      */
     public Config(List<String> groupMembers) {
       this.groupMembers = groupMembers;
+      this.displayMembers = new LinkedList<>();
     }
 
     public int getLowestScore() {
@@ -194,13 +225,25 @@ public class SurveyScreen extends JPanel
     public List<String> getGroupMembers() {
       return groupMembers;
     }
+    public List<String> getDisplayMembers() {
+      return displayMembers;
+    }
 
     public int getNumCols() {
       return numCols;
     }
 
-    public void setNumCols(int numCols) {
-      this.numCols = numCols;
+    public void setMembers(int num) {
+      for (int i = 0; i < num && i < groupMembers.size(); i++) {
+        displayMembers.add(groupMembers.get(i));
+      }
+    }
+
+    public void setRandomScore(boolean val) {
+      randomScore = val;
+    }
+    public boolean getRandomScore() {
+      return randomScore;
     }
 
     public int getHorizontalPadding() {

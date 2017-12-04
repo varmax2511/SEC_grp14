@@ -3,8 +3,10 @@ package com.ub.grp.frteen.core;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,20 +38,27 @@ public class Main {
     // appContainer.setSize(1000, 1000);
     // appContainer.add(new LoginScreen().getScreen());
 
+      FirstScreen firstScreen = new FirstScreen();
+        firstScreen.setAppContainer(appContainer);
+      //appContainer.add(firstScreen);
+
+    List<String> groupMembers = new ArrayList<>();
     appContainer.setLayout(new BorderLayout(10, 10));
-    final List<String> groupMembers = new ArrayList<>();
     groupMembers.add("Varun");
     groupMembers.add("Hiro");
     groupMembers.add("Ralph");
     groupMembers.add("Nick");
     groupMembers.add("Shivam");
 
-    final SurveyScreen.Config surveyConfig = new SurveyScreen.Config(
-        groupMembers);
-    containerPanel.add(new SurveyScreen(surveyConfig).getScreen(),
-        BorderLayout.CENTER);
+    SurveyScreen.Config surveyConfig = new SurveyScreen.Config(groupMembers);
 
-    appContainer.add(containerPanel);
+      SurveyScreen surveyWindow = new SurveyScreen(surveyConfig);
+      firstScreen.setNextJFrameObject(surveyWindow);
+
+      appContainer.add(firstScreen.getScreen());
+    //containerPanel.add(new SurveyScreen(surveyConfig).getScreen(),BorderLayout.CENTER);
+
+    //appContainer.add(containerPanel);
     appContainer.setVisible(true);
     appContainer.pack();
 
