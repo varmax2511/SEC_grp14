@@ -23,6 +23,10 @@ public class NormalizationUtil {
 
     int totalScore = 0;
     for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {
+    		if (memberScore.getValue() < 0) {
+    			// Illegal value
+    			throw new IllegalArgumentException();
+    		}
     		totalScore += memberScore.getValue();
     }
 
