@@ -103,4 +103,12 @@ public class TestNormalization {
     NormalizationUtil.getNormalizedScores(scores);
   }
 
+  /**
+   * This test case validates an invalid input like passing a null object.
+   * Expected result is an illegal argument exception.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidData() {
+    NormalizationUtil.getNormalizedScores(null);
+  }
 }
