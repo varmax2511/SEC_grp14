@@ -19,17 +19,25 @@ public class NormalizationUtil {
    */
   public static Map<String, Double> getNormalizedScores(
       Map<String, Integer> memberScores) {
+
+    // null check
+    if (memberScores == null) {
+      throw new IllegalArgumentException("Invalid Data");
+    }
+    
     final Map<String, Double> member2NormalizedScores = new HashMap<>();
 
     int totalScore = 0;
     for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {
-    		if (memberScore.getValue() < 0) {
-    			// Illegal value
-    			throw new IllegalArgumentException();
-    		}
-    		totalScore += memberScore.getValue();
+      if (memberScore.getValue() < 0) {
+        // Illegal value
+        throw new IllegalArgumentException(
+            "Invalid Data: Negative values not allowed");
+      }
+      totalScore += memberScore.getValue();
     }
 
+    // iterate each member data
     for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {
 
       // no score
@@ -42,7 +50,7 @@ public class NormalizationUtil {
       // compute score
       member2NormalizedScores.put(memberScore.getKey(),
           Double.valueOf(memberScore.getValue()) / totalScore);
-    }// for
+    } // for
 
     return member2NormalizedScores;
   }
