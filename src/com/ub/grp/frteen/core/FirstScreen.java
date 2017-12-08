@@ -182,7 +182,6 @@ this.add(night);
     boolean prevEnter = false;
     if (e.getSource() == optionBox || e.getSource() == nextButton) {
       prevEnter = optionBox.getSelectedItem().toString().toLowerCase().equals("yes");
-      System.out.println(optionBox.getSelectedItem().toString());
     }
     if (e.getSource() == nextButton) {
       setVisibilityOfScreen(false);
