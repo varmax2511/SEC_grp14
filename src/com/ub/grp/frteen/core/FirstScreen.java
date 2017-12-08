@@ -45,8 +45,7 @@ public class FirstScreen extends JPanel
 
   /**
    *
-   * @param config
-   *          !null.Configuration
+   * @param *          !null.Configuration
    */
   public FirstScreen(Config config) {
     // validate
@@ -182,7 +181,8 @@ this.add(night);
 
     boolean prevEnter = false;
     if (e.getSource() == optionBox || e.getSource() == nextButton) {
-      prevEnter = optionBox.getSelectedItem().toString().equals("YES");
+      prevEnter = optionBox.getSelectedItem().toString().toLowerCase().equals("yes");
+      System.out.println(optionBox.getSelectedItem().toString());
     }
     if (e.getSource() == nextButton) {
       setVisibilityOfScreen(false);
