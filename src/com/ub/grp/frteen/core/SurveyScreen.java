@@ -43,7 +43,7 @@ public class SurveyScreen extends JPanel
   private final Config config;
 
   // A list of score selectors for each group member
-  private HashMap<String, ArrayList<JComboBox<Integer>>> scoreSelectors;
+  private Map<String, ArrayList<JComboBox<Integer>>> scoreSelectors;
 
   /**
    * Initialize.
