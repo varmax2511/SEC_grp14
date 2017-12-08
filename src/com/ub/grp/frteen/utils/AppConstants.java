@@ -8,7 +8,7 @@ package com.ub.grp.frteen.utils;
  */
 public interface AppConstants {
 
-  public String DEFAULT_SERIF = "Serif";
+  public String DEFAULT_SERIF = "Helvetica Neue";
   public String WORK_EVALUATION_TXT = "Work Evaluation";
   public String PARTICIPATION_TXT = "Participation";
   public String PROFESSIONALISM_TXT = "Professionalism";

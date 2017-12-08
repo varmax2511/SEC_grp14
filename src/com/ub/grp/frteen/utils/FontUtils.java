@@ -1,5 +1,6 @@
 package com.ub.grp.frteen.utils;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 
@@ -26,6 +27,7 @@ public class FontUtils {
     final JLabel headline = new JLabel(headlineTxt);
     headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
+    headline.setForeground(Color.BLACK);
     return headline;
   }
 }

@@ -1,11 +1,15 @@
 package com.ub.grp.frteen.core;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
 import com.ub.grp.frteen.utils.AppConstants;
@@ -54,34 +59,109 @@ public class FirstScreen extends JPanel
 
   @Override
   public JPanel getScreen() {
-
-    final JLabel num_members = new JLabel("Number of group menbers");
+	
+    final JLabel num_members = new JLabel("Number of group members");
+    num_members.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
     // number of members supported
     final String[] numberOfMemberCandidates = new String[]{"2", "3", "4", "5",
         "6", "7"};
     numMemberBox = new JComboBox<>(numberOfMemberCandidates);
     numMemberBox.addActionListener(this);
-
+    
     final JPanel tablePanel = new JPanel();
+    this.setBorder(BorderFactory.createEmptyBorder(2,0,0,0));
+    
     final GridLayout layout = new GridLayout(2, 2);
+    
+    JPanel obj = this;
+    
     layout.setHgap(config.getHorizontalPadding());
     layout.setVgap(config.getVerticalPadding());
     final JLabel checkLabel = new JLabel("Were scores previously entered?");
-    optionBox = new JComboBox<>(new String[]{"YES", "NO"});
+    
+    
+    checkLabel.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    
+    optionBox = new JComboBox<>(new String[]{"Yes", "No"});
     optionBox.addActionListener(this);
+    
     nextButton = new JButton("Next");
     nextButton.addActionListener(this);
+
+   
+    nextButton.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    nextButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+    final JLabel headline = new JLabel("WELCOME");
+    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
+    headline.setAlignmentX(Component.CENTER_ALIGNMENT); 
+    
+    JToggleButton night = new JToggleButton("Night Mode");
+    night.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    night.setAlignmentX(Component.CENTER_ALIGNMENT);
+    ItemListener itemListener = new ItemListener() {
+        public void itemStateChanged(ItemEvent itemEvent) {
+          int state = itemEvent.getStateChange();
+          if (state == ItemEvent.SELECTED) {
+        	  	night.setBackground(Color.BLACK);
+        	    night.setForeground(Color.WHITE);
+        	    
+        	    num_members.setForeground(Color.white);
+        	    
+        	    numMemberBox.setForeground(Color.WHITE);
+        	    numMemberBox.setBackground(Color.BLACK);
+        	    
+        	    tablePanel.setBackground(Color.BLACK);
+        	    
+        	    obj.setBackground(Color.BLACK);
+        	    
+        	    checkLabel.setForeground(Color.white);
+        	    
+        	    optionBox.setForeground(Color.WHITE);
+        	    optionBox.setBackground(Color.BLACK);
+        	    
+        	    nextButton.setBackground(Color.BLACK);
+        	    nextButton.setForeground(Color.WHITE);
+        	    
+        	    headline.setForeground(Color.WHITE);
+              repaint();
+          } else {
+        	  night.setBackground(Color.WHITE);
+      	    night.setForeground(Color.BLACK);
+      	    
+      	    num_members.setForeground(Color.black);
+      	    
+      	    numMemberBox.setForeground(Color.black);
+      	    numMemberBox.setBackground(Color.white);
+      	    
+      	    tablePanel.setBackground(Color.white);
+      	    
+      	    obj.setBackground(Color.white);
+      	    
+      	    checkLabel.setForeground(Color.black);
+      	    
+      	    optionBox.setForeground(Color.black);
+      	    optionBox.setBackground(Color.white);
+      	    
+      	    nextButton.setBackground(Color.white);
+      	    nextButton.setForeground(Color.black);
+      	    
+      	    headline.setForeground(Color.BLACK);
+              repaint();	          }
+        }
+      };
+night.addItemListener(itemListener);
+this.add(night);
     tablePanel.add(checkLabel);
     tablePanel.add(optionBox);
     tablePanel.setLayout(layout);
-
     tablePanel.add(num_members);
     tablePanel.add(numMemberBox);
 
     // add components vertically
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    this.add(FontUtils.getHeadline("Welcome!"));
+    this.add(headline);
     this.add(tablePanel);
     this.add(new JLabel(" "));
     this.add(nextButton);
@@ -118,6 +198,7 @@ public class FirstScreen extends JPanel
       }
     }
   }//
+    
 
   private void setVisibilityOfScreen(boolean value) {
     this.setVisible(value);
