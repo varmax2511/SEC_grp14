@@ -1,6 +1,7 @@
 package com.ub.grp.frteen.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 /**
@@ -25,7 +26,7 @@ public class NormalizationUtil {
       throw new IllegalArgumentException("Invalid Data");
     }
     
-    final Map<String, Double> member2NormalizedScores = new HashMap<>();
+    final Map<String, Double> member2NormalizedScores = new LinkedHashMap<>();
 
     int totalScore = 0;
     for (final Entry<String, Integer> memberScore : memberScores.entrySet()) {

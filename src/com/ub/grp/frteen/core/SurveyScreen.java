@@ -8,12 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -61,7 +57,7 @@ public class SurveyScreen extends JPanel
       throw new IllegalArgumentException("Configuration object cannot be null");
     }
     this.config = config;
-    this.scoreSelectors = new HashMap<String, ArrayList<JComboBox<Integer>>>();
+    this.scoreSelectors = new LinkedHashMap<String, ArrayList<JComboBox<Integer>>>();
   }
 
   @Override
@@ -259,7 +255,7 @@ public class SurveyScreen extends JPanel
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    final HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
+    final HashMap<String, Integer> memberScores = new LinkedHashMap<>();
 
     for (final String member : config.getDisplayMembers()) {
 
