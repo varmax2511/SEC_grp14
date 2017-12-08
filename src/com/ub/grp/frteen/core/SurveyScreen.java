@@ -219,11 +219,19 @@ public class SurveyScreen extends JPanel
     return this;
   }
 
+  /**
+   * Get the random value for score
+   * @return random integer value
+   */
   public int getRandomVal() {
     Random random = new Random();
     return random.nextInt(5) + 1;
   }
 
+  /**
+   *
+   * @return config class object
+   */
   public Config getConfig() {
     return this.config;
   }
@@ -311,58 +319,116 @@ public class SurveyScreen extends JPanel
       this.displayMembers = new LinkedList<>();
     }
 
+    /**
+     *
+     * @return the default lowest score
+     */
     public int getLowestScore() {
       return lowestScore;
     }
 
+    /**
+     * sets the lowest score
+     * @param lowestScore
+     */
     public void setLowestScore(int lowestScore) {
       this.lowestScore = lowestScore;
     }
 
+    /**
+     *
+     * @return the default highest score
+     */
     public int getHighestScore() {
       return highestScore;
     }
 
+    /**
+     * sets the highest score
+     * @param highestScore
+     */
     public void setHighestScore(int highestScore) {
       this.highestScore = highestScore;
     }
 
+    /**
+     *
+     * @return the list of members that were set in main
+     */
     public List<String> getGroupMembers() {
       return groupMembers;
     }
+
+    /**
+     *
+     * @return the selected members by first screen
+     */
     public List<String> getDisplayMembers() {
       return displayMembers;
     }
 
+    /**
+     * gets the number of columns for UI adjustment
+     * @return
+     */
     public int getNumCols() {
       return numCols;
     }
 
+    /**
+     * sets the members for displaying on peer-evaluation window
+     * @param num
+     */
     public void setMembers(int num) {
       for (int i = 0; i < num && i < groupMembers.size(); i++) {
         displayMembers.add(groupMembers.get(i));
       }
     }
 
+    /**
+     * a checker sets the random score or not (depending on the choice of the first screen)
+     * @param val
+     */
     public void setRandomScore(boolean val) {
       randomScore = val;
     }
+
+    /**
+     *  check gets random score or not when displaying evaluation scores
+     * @return
+     */
     public boolean getRandomScore() {
       return randomScore;
     }
 
+    /**
+     *
+     * @return the number of necessary padding in horizontal line
+     */
     public int getHorizontalPadding() {
       return horizontalPadding;
     }
 
+    /**
+     * sets the needed number of padding in horizontal line
+     * @param horizontalPadding
+     */
     public void setHorizontalPadding(int horizontalPadding) {
       this.horizontalPadding = horizontalPadding;
     }
 
+    /**
+     * gets the number of padding in vertical line
+     * @return
+     */
     public int getVerticalPadding() {
       return verticalPadding;
     }
 
+    /**
+     * sets the number of padding in vertical line
+     * @param verticalPadding
+     */
     public void setVerticalPadding(int verticalPadding) {
       this.verticalPadding = verticalPadding;
     }

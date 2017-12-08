@@ -20,6 +20,10 @@ import com.ub.grp.frteen.utils.FontUtils;
  */
 public class Main {
 
+  /**
+   * runs the entire application
+   * @param args : do nothing for our app
+   */
   public static void main(String[] args) {
 
     final JFrame appContainer = new JFrame();

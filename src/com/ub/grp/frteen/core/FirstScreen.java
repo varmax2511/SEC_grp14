@@ -198,15 +198,18 @@ this.add(night);
       }
     }
   }//
-    
 
+  /**
+   * sets the visibility of current screen.
+   * @param value true--> on. false --> off
+   */
   private void setVisibilityOfScreen(boolean value) {
     this.setVisible(value);
   }//
 
   /**
    * Configuration class for {@link FirstScreen}
-   *
+   *  accepts surveyscreen object. and other UI utilities configuration with pre-defined parameters
    *
    */
   public static class Config {
@@ -230,42 +233,83 @@ this.add(night);
 
       this.appContainer = appContainer;
     }
+
+    /**
+     *  sets the next JFrame objects to proceed to survey screen
+     * @param window
+     */
     public void setNextJFrameObject(SurveyScreen window) {
       surveyScreen = window;
     }
 
+    /**
+     * gets the number of necessary padding in horizontal direction
+     * @return
+     */
     public int getHorizontalPadding() {
       return horizontalPadding;
     }
 
+    /**
+     * sets the number of padding in horizontal direction.
+     * @param horizontalPadding
+     */
     public void setHorizontalPadding(int horizontalPadding) {
       this.horizontalPadding = horizontalPadding;
     }
 
+    /**
+     * gets the number of necessary padding in vertical direction
+     * @return
+     */
     public int getVerticalPadding() {
       return verticalPadding;
     }
 
+    /**
+     * sets the number of padding in the vertical direction
+     * @param verticalPadding
+     */
     public void setVerticalPadding(int verticalPadding) {
       this.verticalPadding = verticalPadding;
     }
 
+    /**
+     *
+     * @return the survey screen class object
+     */
     public SurveyScreen getSurveyScreen() {
       return surveyScreen;
     }
 
+    /**
+     * sets the survey screen class object
+     * @param surveyScreen
+     */
     public void setSurveyScreen(SurveyScreen surveyScreen) {
       this.surveyScreen = surveyScreen;
     }
 
+    /**
+     *
+     * @return the number of current members
+     */
     public int getNumberOfMembers() {
       return numberOfMembers;
     }
 
+    /**
+     * sets the number of current members
+     * @param numberOfMembers
+     */
     public void setNumberOfMembers(int numberOfMembers) {
       this.numberOfMembers = numberOfMembers;
     }
 
+    /**
+     *
+     * @return the JFrame application container
+     */
     public JFrame getAppContainer() {
       return appContainer;
     }
