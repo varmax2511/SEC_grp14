@@ -18,7 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
 import com.ub.grp.frteen.utils.AppConstants;
@@ -75,17 +74,17 @@ public class SurveyScreen extends JPanel
 
     tablePanel.setLayout(layout);
     final JLabel headline = new JLabel("SURVEY FORM");
-    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
+    headline.setFont(new Font(AppConstants.DEFAULT_FONT, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
     //getHeader(tablePanel);
     final JLabel memberss = new JLabel(AppConstants.MEMBER_TXT);
-    memberss.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    memberss.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel prof = new JLabel(AppConstants.PROFESSIONALISM_TXT);
-    prof.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    prof.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel part = new JLabel(AppConstants.PARTICIPATION_TXT);
-    part.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    part.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel work = new JLabel(AppConstants.WORK_EVALUATION_TXT);
-    work.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    work.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     // create the form
     
     JLabel mem[] = new JLabel[config.getDisplayMembers().size()];
@@ -99,7 +98,7 @@ public class SurveyScreen extends JPanel
     for (final String member : config.getDisplayMembers()) {   	
       scoreSelectors.put(member, new ArrayList<JComboBox<Integer>>());
       mem[k].setText(member); /*= new JLabel(member);*/
-      mem[k].setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+      mem[k].setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
      /* tablePanel.add(mem[k]);*/
 
       // add columns
@@ -120,16 +119,13 @@ public class SurveyScreen extends JPanel
     // add buttons
     final JPanel buttonPanel = new JPanel();
     final JButton submit = new JButton("Submit");
-    final JButton reset = new JButton("Reset");
+    
     submit.addActionListener(this);
-    submit.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    submit.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-    reset.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
-    reset.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+    
    
-    JToggleButton night = new JToggleButton("Night Mode");
-    night.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
-    night.setAlignmentX(Component.CENTER_ALIGNMENT);
     ItemListener itemListener = new ItemListener() {
         public void itemStateChanged(ItemEvent itemEvent) {
           int state = itemEvent.getStateChange();
@@ -140,9 +136,6 @@ public class SurveyScreen extends JPanel
         	    part.setForeground(Color.white);
         	    work.setForeground(Color.white);
 
-        	  	night.setBackground(Color.BLACK);
-        	    night.setForeground(Color.WHITE);
-          
           		obj.setBackground(Color.BLACK);
           		
           	    tablePanel.setBackground(Color.BLACK);
@@ -158,10 +151,6 @@ public class SurveyScreen extends JPanel
           	    
           	    submit.setBackground(Color.BLACK);
                 submit.setForeground(Color.WHITE);
-                
-                reset.setBackground(Color.BLACK);
-                reset.setForeground(Color.WHITE);
-                
                 repaint();
                 
           }	
@@ -170,11 +159,8 @@ public class SurveyScreen extends JPanel
         	memberss.setForeground(Color.black);
       	    prof.setForeground(Color.black);
       	    part.setForeground(Color.black);
-      	    work.setForeground(Color.black);
+            work.setForeground(Color.black);
 
-      	  	night.setBackground(Color.white);
-      	    night.setForeground(Color.black);
-        
         		obj.setBackground(Color.white);
         		
         	    tablePanel.setBackground(Color.white);
@@ -190,14 +176,10 @@ public class SurveyScreen extends JPanel
         	    
         	    submit.setBackground(Color.white);
               submit.setForeground(Color.black);
-              
-              reset.setBackground(Color.white);
-              reset.setForeground(Color.black);
         	  repaint();
           }  
         }};
-    night.addItemListener(itemListener);
-    this.add(night);
+
     this.add(headline);
     tablePanel.add(memberss);
     tablePanel.add(prof);
@@ -208,7 +190,7 @@ public class SurveyScreen extends JPanel
     for(int n = 0; n<config.getNumCols()-1;n++)
         tablePanel.add(scoreSelector[l][n]);}
     buttonPanel.add(submit);
-    buttonPanel.add(reset);
+    
     this.add(tablePanel);
     // adding spacing
     this.add(new JLabel(" "));
@@ -244,16 +226,16 @@ public class SurveyScreen extends JPanel
     this.add(FontUtils.getHeadline(AppConstants.SURVEY_FORM_TEXT));
     final JLabel member = new JLabel(AppConstants.MEMBER_TXT);
     member.setForeground(Color.white);
-    member.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    member.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel prof = new JLabel(AppConstants.PROFESSIONALISM_TXT);
     prof.setForeground(Color.white);
-    prof.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    prof.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel part = new JLabel(AppConstants.PARTICIPATION_TXT);
     part.setForeground(Color.white);
-    part.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    part.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     final JLabel work = new JLabel(AppConstants.WORK_EVALUATION_TXT);
     work.setForeground(Color.white);
-    work.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    work.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     tablePanel.add(member);
     tablePanel.add(prof);
     tablePanel.add(part);

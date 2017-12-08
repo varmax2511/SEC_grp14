@@ -60,7 +60,7 @@ public class FirstScreen extends JPanel
   public JPanel getScreen() {
 	
     final JLabel num_members = new JLabel("Number of group members");
-    num_members.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    num_members.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     // number of members supported
     final String[] numberOfMemberCandidates = new String[]{"2", "3", "4", "5",
         "6", "7"};
@@ -79,7 +79,7 @@ public class FirstScreen extends JPanel
     final JLabel checkLabel = new JLabel("Were scores previously entered?");
     
     
-    checkLabel.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    checkLabel.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     
     optionBox = new JComboBox<>(new String[]{"Yes", "No"});
     optionBox.addActionListener(this);
@@ -88,22 +88,17 @@ public class FirstScreen extends JPanel
     nextButton.addActionListener(this);
 
    
-    nextButton.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
+    nextButton.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     nextButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     
     final JLabel headline = new JLabel("WELCOME");
-    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
+    headline.setFont(new Font(AppConstants.DEFAULT_FONT, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT); 
     
-    JToggleButton night = new JToggleButton("Night Mode");
-    night.setFont(new Font("Comic Sans MS",Font.BOLD, 20));
-    night.setAlignmentX(Component.CENTER_ALIGNMENT);
     ItemListener itemListener = new ItemListener() {
         public void itemStateChanged(ItemEvent itemEvent) {
           int state = itemEvent.getStateChange();
           if (state == ItemEvent.SELECTED) {
-        	  	night.setBackground(Color.BLACK);
-        	    night.setForeground(Color.WHITE);
         	    
         	    num_members.setForeground(Color.white);
         	    
@@ -125,8 +120,6 @@ public class FirstScreen extends JPanel
         	    headline.setForeground(Color.WHITE);
               repaint();
           } else {
-        	  night.setBackground(Color.WHITE);
-      	    night.setForeground(Color.BLACK);
       	    
       	    num_members.setForeground(Color.black);
       	    
@@ -149,8 +142,7 @@ public class FirstScreen extends JPanel
               repaint();	          }
         }
       };
-night.addItemListener(itemListener);
-this.add(night);
+
     tablePanel.add(checkLabel);
     tablePanel.add(optionBox);
     tablePanel.setLayout(layout);

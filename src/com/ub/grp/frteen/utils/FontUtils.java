@@ -25,7 +25,7 @@ public class FontUtils {
 
   public static JLabel getHeadline(String headlineTxt) {
     final JLabel headline = new JLabel(headlineTxt);
-    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
+    headline.setFont(new Font(AppConstants.DEFAULT_FONT, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT);
     headline.setForeground(Color.BLACK);
     return headline;
