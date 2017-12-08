@@ -3,23 +3,26 @@ package com.ub.grp.frteen.core;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.ub.grp.frteen.utils.AppConstants;
+import com.ub.grp.frteen.utils.FontUtils;
 import com.ub.grp.frteen.utils.NormalizationUtil;
 
 /**
@@ -106,8 +109,12 @@ public class SurveyScreen extends JPanel
     buttonPanel.add(reset);
 
     this.add(tablePanel);
+    // adding spacing
+    this.add(new JLabel(" "));
     this.add(buttonPanel);
 
+    final Border padding = BorderFactory.createEmptyBorder(10, 40, 10, 40);
+    this.setBorder(padding);
     return this;
   }
 
@@ -125,11 +132,7 @@ public class SurveyScreen extends JPanel
    */
   private void getHeader(JPanel tablePanel) {
 
-    final JLabel headline = new JLabel(AppConstants.SURVEY_FORM_TEXT);
-    headline.setFont(new Font(AppConstants.DEFAULT_SERIF, Font.BOLD, 30));
-    headline.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-    this.add(headline);
+    this.add(FontUtils.getHeadline(AppConstants.SURVEY_FORM_TEXT));
 
     tablePanel.add(new JLabel(AppConstants.MEMBER_TXT));
     tablePanel.add(new JLabel(AppConstants.PROFESSIONALISM_TXT));
@@ -140,7 +143,6 @@ public class SurveyScreen extends JPanel
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    Integer totalScore = 0;
     final HashMap<String, Integer> memberScores = new HashMap<String, Integer>();
 
     for (final String member : config.getDisplayMembers()) {

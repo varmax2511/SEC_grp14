@@ -40,6 +40,14 @@ public class TestNormalization {
     assertEquals(result.get("Hiro"), (Double) 0.2);
     assertEquals(result.get("Varun"), (Double) 0.2);
     assertEquals(result.get("Ralph"), (Double) 0.2);
+    
+    // check total normalized score is 1
+    Double total = 0.0;
+    for(Double score : result.values()) {
+      total += score;
+    }
+    
+    assertEquals((Double)1.0, total);
   }
 
   /**
@@ -62,6 +70,14 @@ public class TestNormalization {
     assertEquals(result.get("Hiro"), (Double) 0.3);
     assertEquals(result.get("Varun"), (Double) 0.3);
     assertEquals(result.get("Ralph"), (Double) 0.1);
+    
+    // check total normalized score is 1
+    Double total = 0.0;
+    for(Double score : result.values()) {
+      total += score;
+    }
+    
+    assertEquals((Double)1.0, total);
   }
   /**
    * This test validates that all members have been assigned zero scores.
@@ -81,6 +97,14 @@ public class TestNormalization {
     assertEquals(result.get("Hiro"), (Double) 0.2);
     assertEquals(result.get("Varun"), (Double) 0.2);
     assertEquals(result.get("Ralph"), (Double) 0.2);
+
+    // check total normalized score is 1
+    Double total = 0.0;
+    for(Double score : result.values()) {
+      total += score;
+    }
+    
+    assertEquals((Double)1.0, total);
   }
   /**
    * This test case expects that no scores have been passed. Expected result is

@@ -3,10 +3,8 @@ package com.ub.grp.frteen.core;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,18 +29,11 @@ public class Main {
     containerPanel.setBorder(padding);
 
     // set application font
-    FontUtils.setUIFont(
-        new javax.swing.plaf.FontUIResource(AppConstants.FONT_SERIF, Font.PLAIN, 20));
+    FontUtils.setUIFont(new javax.swing.plaf.FontUIResource(
+        AppConstants.FONT_SERIF, Font.PLAIN, 20));
 
-    appContainer.setLocation(500, 200);
-    appContainer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // appContainer.add(new LoginScreen().getScreen());
-
-      FirstScreen firstScreen = new FirstScreen();
-        firstScreen.setAppContainer(appContainer);
-      //appContainer.add(firstScreen);
-
-    List<String> groupMembers = new ArrayList<>();
+    // group members default list
+    final List<String> groupMembers = new ArrayList<>();
     appContainer.setLayout(new BorderLayout(10, 10));
     groupMembers.add("Varun");
     groupMembers.add("Hiro");
@@ -52,16 +43,23 @@ public class Main {
     groupMembers.add("Fred");
     groupMembers.add("Johnny");
 
-    SurveyScreen.Config surveyConfig = new SurveyScreen.Config(groupMembers);
+    // configure Survey Screen
+    final SurveyScreen surveyWindow = new SurveyScreen(
+        new SurveyScreen.Config(groupMembers));
 
-      SurveyScreen surveyWindow = new SurveyScreen(surveyConfig);
-      firstScreen.setNextJFrameObject(surveyWindow);
+    // configure First screen
+    final FirstScreen.Config firstScreenConfig = new FirstScreen.Config(
+        appContainer);
+    firstScreenConfig.setNextJFrameObject(surveyWindow);
+    final FirstScreen firstScreen = new FirstScreen(firstScreenConfig);
 
-      appContainer.add(firstScreen.getScreen());
-    //containerPanel.add(new SurveyScreen(surveyConfig).getScreen(),BorderLayout.CENTER);
-
-    //appContainer.add(containerPanel);
+    // configure the container
+    appContainer.add(firstScreen.getScreen());
     appContainer.pack();
+    appContainer.setTitle("Student Peer Evaluation System");
+    appContainer.setLocation(500, 200);
+    appContainer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     appContainer.setVisible(true);
+
   }
 }
