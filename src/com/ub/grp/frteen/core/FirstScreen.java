@@ -111,6 +111,7 @@ public class FirstScreen extends JPanel
     final Border padding = BorderFactory.createEmptyBorder(10, 40, 10, 40);
     this.setBorder(padding);
 
+    
     this.setVisible(true);
     return this;
   }//
