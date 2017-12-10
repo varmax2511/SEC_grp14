@@ -79,6 +79,42 @@ public class TestNormalization {
     
     assertEquals((Double)1.0, total);
   }
+  
+  /**
+   * This test tests the for loop in such a way that it makes only one pass
+   */
+  @Test
+  public void testNormalCase3() {
+	  scores.put("Shivam", 3);
+	  Map<String, Double> result = NormalizationUtil.getNormalizedScores(scores);
+	  assertEquals(result.get("Shivam"),(Double)1.0);
+	// check total normalized score is 1
+	    Double total = 0.0;
+	    for(Double score : result.values()) {
+	      total += score;
+	    }
+	    
+	    assertEquals((Double)1.0, total);
+  }
+  
+  /**
+   * This test tests the for loop in such a way that it makes only two passes
+   */
+  @Test
+  public void testNormalCase4() {
+	  scores.put("Shivam", 3);
+	  scores.put("Varun", 3);
+	  Map<String, Double> result = NormalizationUtil.getNormalizedScores(scores);
+	  assertEquals(result.get("Shivam"),(Double)0.5);
+	  assertEquals(result.get("Varun"),(Double)0.5);
+	// check total normalized score is 1
+	    Double total = 0.0;
+	    for(Double score : result.values()) {
+	      total += score;
+	    }
+	    
+	    assertEquals((Double)1.0, total);
+  }
   /**
    * This test validates that all members have been assigned zero scores.
    * Expected result is that all members should get the same score.
@@ -108,7 +144,8 @@ public class TestNormalization {
   }
   /**
    * This test case expects that no scores have been passed. Expected result is
-   * 0.
+   * 0. This tests the simple for loop in a way that loop is skipped entirely and this case is
+   * handled beforehand in the TestNormalization class
    */
   @Test
   public void testEmptyScores() {

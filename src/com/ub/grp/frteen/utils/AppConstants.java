@@ -1,7 +1,7 @@
 package com.ub.grp.frteen.utils;
 
 /**
- * Application constansts
+ * Application constants
  * 
  * @author varunjai
  *

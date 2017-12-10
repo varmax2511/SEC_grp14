@@ -95,54 +95,6 @@ public class FirstScreen extends JPanel
     headline.setFont(new Font(AppConstants.DEFAULT_FONT, Font.BOLD, 30));
     headline.setAlignmentX(Component.CENTER_ALIGNMENT); 
     
-    ItemListener itemListener = new ItemListener() {
-        public void itemStateChanged(ItemEvent itemEvent) {
-          int state = itemEvent.getStateChange();
-          if (state == ItemEvent.SELECTED) {
-        	    
-        	    num_members.setForeground(Color.white);
-        	    
-        	    numMemberBox.setForeground(Color.WHITE);
-        	    numMemberBox.setBackground(Color.BLACK);
-        	    
-        	    tablePanel.setBackground(Color.BLACK);
-        	    
-        	    obj.setBackground(Color.BLACK);
-        	    
-        	    checkLabel.setForeground(Color.white);
-        	    
-        	    optionBox.setForeground(Color.WHITE);
-        	    optionBox.setBackground(Color.BLACK);
-        	    
-        	    nextButton.setBackground(Color.BLACK);
-        	    nextButton.setForeground(Color.WHITE);
-        	    
-        	    headline.setForeground(Color.WHITE);
-              repaint();
-          } else {
-      	    
-      	    num_members.setForeground(Color.black);
-      	    
-      	    numMemberBox.setForeground(Color.black);
-      	    numMemberBox.setBackground(Color.white);
-      	    
-      	    tablePanel.setBackground(Color.white);
-      	    
-      	    obj.setBackground(Color.white);
-      	    
-      	    checkLabel.setForeground(Color.black);
-      	    
-      	    optionBox.setForeground(Color.black);
-      	    optionBox.setBackground(Color.white);
-      	    
-      	    nextButton.setBackground(Color.white);
-      	    nextButton.setForeground(Color.black);
-      	    
-      	    headline.setForeground(Color.BLACK);
-              repaint();	          }
-        }
-      };
-
     tablePanel.add(checkLabel);
     tablePanel.add(optionBox);
     tablePanel.setLayout(layout);

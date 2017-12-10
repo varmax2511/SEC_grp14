@@ -123,62 +123,6 @@ public class SurveyScreen extends JPanel
     submit.addActionListener(this);
     submit.setFont(new Font(AppConstants.DEFAULT_FONT,Font.BOLD, 20));
     submit.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
-    
-   
-    ItemListener itemListener = new ItemListener() {
-        public void itemStateChanged(ItemEvent itemEvent) {
-          int state = itemEvent.getStateChange();
-          if (state == ItemEvent.SELECTED) {
-        	    headline.setForeground(Color.white);
-        	    memberss.setForeground(Color.white);
-        	    prof.setForeground(Color.white);
-        	    part.setForeground(Color.white);
-        	    work.setForeground(Color.white);
-
-          		obj.setBackground(Color.BLACK);
-          		
-          	    tablePanel.setBackground(Color.BLACK);
-          	    
-          	    for(int l=0; l<config.getDisplayMembers().size();l++) {
-                mem[l].setForeground(Color.white);
-          	    
-          	    for(int n = 0; n<config.getNumCols()-1;n++) {
-          	    scoreSelector[l][n].setForeground(Color.WHITE);
-                scoreSelector[l][n].setBackground(Color.BLACK);}}
-          	    
-          	    buttonPanel.setBackground(Color.BLACK);
-          	    
-          	    submit.setBackground(Color.BLACK);
-                submit.setForeground(Color.WHITE);
-                repaint();
-                
-          }	
-          else {
-        	headline.setForeground(Color.black);  
-        	memberss.setForeground(Color.black);
-      	    prof.setForeground(Color.black);
-      	    part.setForeground(Color.black);
-            work.setForeground(Color.black);
-
-        		obj.setBackground(Color.white);
-        		
-        	    tablePanel.setBackground(Color.white);
-        	    
-        	    for(int l=0; l<config.getDisplayMembers().size();l++) {
-              mem[l].setForeground(Color.black);
-        	    
-        	    for(int n = 0; n<config.getNumCols()-1;n++) {
-        	    scoreSelector[l][n].setForeground(Color.black);
-              scoreSelector[l][n].setBackground(Color.white);}}
-        	    
-        	    buttonPanel.setBackground(Color.white);
-        	    
-        	    submit.setBackground(Color.white);
-              submit.setForeground(Color.black);
-        	  repaint();
-          }  
-        }};
 
     this.add(headline);
     tablePanel.add(memberss);
